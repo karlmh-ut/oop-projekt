@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24651cd3-5615-4af0-a2f8-5e9574dc4ff1" name="Changes" comment="Added RequestProcessor implementations. Renamed Teenindaja to Handler to maintain single language throughout the code. Added factory design implementation to create new request processors depending on request type.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/forum/entities/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/AuthProcessor.java" afterDir="false" />
+    <list default="true" id="24651cd3-5615-4af0-a2f8-5e9574dc4ff1" name="Changes" comment="Added authentication processor. Modified Client class to send after authentication request either ints or strings using console window. Added user list to the Server class and corresponding getter. Added user entity.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/requests/RequestProcessorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/RequestProcessorFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/requests/AuthProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/AuthProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +25,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="baas" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -110,7 +106,7 @@
       <updated>1679657751012</updated>
       <workItem from="1679657752612" duration="1238000" />
       <workItem from="1680427036572" duration="221000" />
-      <workItem from="1680427267348" duration="10616000" />
+      <workItem from="1680427267348" duration="12663000" />
     </task>
     <task id="LOCAL-00001" summary="Divided Server and Teenindaja classes into 2 separate files. Changed Thread extension to Runnable implementation. Prepared an interface to make a separate processor Class for each type of request.">
       <created>1680429268254</created>
@@ -126,7 +122,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680432416229</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Added authentication processor. Modified Client class to send after authentication request either ints or strings using console window. Added user list to the Server class and corresponding getter. Added user entity.">
+      <created>1680439811451</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1680439811451</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +149,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Divided Server and Teenindaja classes into 2 separate files. Changed Thread extension to Runnable implementation. Prepared an interface to make a separate processor Class for each type of request." />
     <MESSAGE value="Added RequestProcessor implementations. Renamed Teenindaja to Handler to maintain single language throughout the code. Added factory design implementation to create new request processors depending on request type." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added RequestProcessor implementations. Renamed Teenindaja to Handler to maintain single language throughout the code. Added factory design implementation to create new request processors depending on request type." />
+    <MESSAGE value="Added authentication processor. Modified Client class to send after authentication request either ints or strings using console window. Added user list to the Server class and corresponding getter. Added user entity." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added authentication processor. Modified Client class to send after authentication request either ints or strings using console window. Added user list to the Server class and corresponding getter. Added user entity." />
   </component>
 </project>

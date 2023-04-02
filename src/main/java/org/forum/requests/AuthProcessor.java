@@ -14,8 +14,6 @@ public class AuthProcessor implements RequestProcessor {
     public void processRequest(DataInputStream dis, DataOutputStream dos) throws IOException {
         dos.writeInt(INPUT_INT);
         int response;
-        System.out.println("Are you an existing user or do you want to create a user profile?");
-        System.out.println("0 - Log In\t1 - Sign In");
         while((response = dis.readInt()) != 0 && response != 1) {dos.writeInt(INPUT_INT);}
 
         if (response == 0) {
@@ -26,10 +24,10 @@ public class AuthProcessor implements RequestProcessor {
     }
 
     private void logIn() {
-
+        System.out.println("User logged in");
     }
 
     private void signIn() {
-
+        System.out.println("User created");
     }
 }

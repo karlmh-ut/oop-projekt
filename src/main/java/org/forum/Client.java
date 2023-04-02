@@ -20,6 +20,8 @@ public class Client {
 
     public static void authentify(DataOutputStream dos) throws IOException {
         dos.writeInt(RequestProcessorFactory.TYPE_AUTH);
+        System.out.println("Are you an existing user or do you want to create a user profile?");
+        System.out.println("0 - Log In\t1 - Sign In");
     }
 
     private static void sendCustom(DataOutputStream dos, DataInputStream dis) throws IOException {
