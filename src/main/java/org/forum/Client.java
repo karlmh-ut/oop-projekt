@@ -1,12 +1,14 @@
 package org.forum;
 
+import org.forum.requests.RequestProcessorFactory;
+
 import java.io.*;
 import java.net.Socket;
 
 public class Client {
 
     private static void sendEcho(DataOutputStream dos, DataInputStream dis, String msg) throws IOException {
-        dos.writeInt(Server.TYPE_ECHO);
+        dos.writeInt(RequestProcessorFactory.TYPE_ECHO);
         dos.writeUTF(msg);
         System.out.println("[Echo] Saatsin: " + msg);
         String resp = dis.readUTF();
@@ -19,7 +21,7 @@ public class Client {
              DataInputStream dis = new DataInputStream(sock.getInputStream())) {
 
             sendEcho(dos, dis, "sample text, tere");
-            dos.writeInt(Server.TYPE_END);
+            dos.writeInt(RequestProcessorFactory.TYPE_END);
         }
     }
 }
