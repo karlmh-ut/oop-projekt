@@ -8,10 +8,14 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
+
+
 public class Handler implements Runnable {
-    final DataInputStream dis;
-    final DataOutputStream dos;
-    final Socket sock;
+    private final DataInputStream dis;
+    private final DataOutputStream dos;
+    private final Socket sock;
+
+
 
     public Handler(Socket sock) throws IOException {
         this.sock = sock;

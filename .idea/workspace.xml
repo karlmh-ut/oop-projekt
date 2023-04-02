@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="24651cd3-5615-4af0-a2f8-5e9574dc4ff1" name="Changes" comment="Divided Server and Teenindaja classes into 2 separate files. Changed Thread extension to Runnable implementation. Prepared an interface to make a separate processor Class for each type of request.">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/EchoProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/EndProcessor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/RequestProcessorFactory.java" afterDir="false" />
+    <list default="true" id="24651cd3-5615-4af0-a2f8-5e9574dc4ff1" name="Changes" comment="Added RequestProcessor implementations. Renamed Teenindaja to Handler to maintain single language throughout the code. Added factory design implementation to create new request processors depending on request type.">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/forum/entities/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/AuthProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/Handler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/Teenindaja.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/requestprocessor/RequestProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/requestprocessor/RequestProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/forum/requests/RequestProcessorFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/forum/requests/RequestProcessorFactory.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,7 +110,7 @@
       <updated>1679657751012</updated>
       <workItem from="1679657752612" duration="1238000" />
       <workItem from="1680427036572" duration="221000" />
-      <workItem from="1680427267348" duration="4912000" />
+      <workItem from="1680427267348" duration="10616000" />
     </task>
     <task id="LOCAL-00001" summary="Divided Server and Teenindaja classes into 2 separate files. Changed Thread extension to Runnable implementation. Prepared an interface to make a separate processor Class for each type of request.">
       <created>1680429268254</created>
@@ -122,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1680429268254</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added RequestProcessor implementations. Renamed Teenindaja to Handler to maintain single language throughout the code. Added factory design implementation to create new request processors depending on request type.">
+      <created>1680432416229</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1680432416229</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -141,6 +145,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Divided Server and Teenindaja classes into 2 separate files. Changed Thread extension to Runnable implementation. Prepared an interface to make a separate processor Class for each type of request." />
-    <option name="LAST_COMMIT_MESSAGE" value="Divided Server and Teenindaja classes into 2 separate files. Changed Thread extension to Runnable implementation. Prepared an interface to make a separate processor Class for each type of request." />
+    <MESSAGE value="Added RequestProcessor implementations. Renamed Teenindaja to Handler to maintain single language throughout the code. Added factory design implementation to create new request processors depending on request type." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added RequestProcessor implementations. Renamed Teenindaja to Handler to maintain single language throughout the code. Added factory design implementation to create new request processors depending on request type." />
   </component>
 </project>

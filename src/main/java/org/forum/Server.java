@@ -1,10 +1,15 @@
 package org.forum;
 
+import org.forum.entities.User;
+
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Server {
-    static final int PORTNUM = 1337;
+    public static final int PORTNUM = 1337;
+    private static final List<User> userList = new ArrayList<>();
 
     public static void main(String[] args) throws Exception {
         try (ServerSocket ss = new ServerSocket(Server.PORTNUM)) {
@@ -16,5 +21,8 @@ public class Server {
                 t.start();
             }
         }
+    }
+    public static List<User> getUserList() {
+        return userList;
     }
 }
