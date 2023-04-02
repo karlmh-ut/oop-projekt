@@ -1,14 +1,14 @@
-package org.example;
+package org.forum;
 
-import java.io.*;
-import java.net.ServerSocket;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.Socket;
 
-class Teenindaja extends Thread {
+public class Teenindaja implements Runnable {
     final DataInputStream dis;
     final DataOutputStream dos;
     final Socket sock;
-
     public Teenindaja(Socket sock) throws IOException {
         this.sock = sock;
         this.dis = new DataInputStream(this.sock.getInputStream());
@@ -40,24 +40,6 @@ class Teenindaja extends Thread {
             while (!this.sock.isClosed()) processRequest();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-}
-
-public class Server {
-    static final int TYPE_END = 0;
-    static final int TYPE_ECHO = 1;
-    static final int PORTNUM = 1337;
-
-    public static void main(String[] args) throws Exception {
-        try (ServerSocket ss = new ServerSocket(Server.PORTNUM)) {
-            System.out.println("Ootan ühendusi");
-            while (true) {
-                Socket socket = ss.accept();
-                System.out.println("Uus ühendus: " + socket);
-                Thread t = new Teenindaja(socket);
-                t.start();
-            }
         }
     }
 }
