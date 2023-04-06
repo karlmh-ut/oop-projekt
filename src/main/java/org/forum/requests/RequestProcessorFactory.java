@@ -12,15 +12,11 @@ public class RequestProcessorFactory {
 
 
     public static RequestProcessor createRequestProcessor(int requestType, Socket sock) {
-        if (requestType == TYPE_END) {
-            return new EndProcessor(sock);
-        } else if (requestType == TYPE_ECHO) {
-            return new EchoProcessor();
-        } else if (requestType == TYPE_AUTH) {
-            return new AuthProcessor();
-        } else {
-            System.out.println("Ebasobiv sõnumi tüüp: " + requestType);
-            return null;
+        switch (requestType) {
+            case TYPE_END -> { return new EndProcessor(sock); }
+            case TYPE_ECHO -> { return new EchoProcessor(); }
+            case TYPE_AUTH -> { return new AuthProcessor(); }
+            default -> { System.out.println("Ebasobiv sõnumi tüüp: " + requestType); return null; }
         }
     }
 }
