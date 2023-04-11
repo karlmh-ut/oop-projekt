@@ -12,12 +12,13 @@ public abstract class Post {
     private final User author;
     private final ArrayList<User> likedBy;
 
+    // So SQL request generates this?
     protected Post(String content, User author) {
-        this.content = content;
+        this.content = content; // Should be contained in file, text, images, formatting etc
         this.datetime = currentTime();
         this.editedtime = "";
         this.author = author;
-        this.likedBy = new ArrayList<>();
+        this.likedBy = new ArrayList<>(); // Replaceable with a SQL request, I'd replace it with an int of likedCount
     }
 
     /**
@@ -41,6 +42,7 @@ public abstract class Post {
         return timestring;
     }
 
+    //
     public String getContent() {
         return content;
     }
@@ -48,7 +50,7 @@ public abstract class Post {
     /**
      * Update the content of the post and call updateEditedtime()
      */
-    public void updateContent(String newcontent) {
+    public void updateContent(String newcontent) { // We need a method for checking permissions for edits n shit
         updateEditedtime();
         this.content = newcontent;
     }
@@ -63,15 +65,15 @@ public abstract class Post {
      */
     public void addLike(User user) {
         if (!(this.likedBy.contains(user))) this.likedBy.add(user);
-    }
+    } // SQL code should be better
 
     public void removeLike(User user) {
         this.likedBy.remove(user);
-    }
+    } // SQL code
 
     public List<User> getLikedBy() {
         return likedBy;
-    }
+    } // SQL code
 
     @Override
     public String toString() {
