@@ -1,5 +1,8 @@
 package org.forum.entities;
 
+import org.forum.internal.PermissionKeywords;
+import org.forum.internal.Permissions;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +36,7 @@ public class ThreadPost extends Post {
      * Delete comment if the acting user is admin OR if the acting user is the author of the comment
      */
     public void removeComment(ForumPost forumpost, User user) {
-        if (true) { // Better use a separate unified method for checking for permissions, we can make that check for exceptions
+        if (Permissions.checkForPermissionsOR(user, PermissionKeywords.USER_DELETE_POST, PermissionKeywords.ADMIN_REMOVE_POSTS)) {
             this.forumPosts.remove(forumpost);
         }
     }

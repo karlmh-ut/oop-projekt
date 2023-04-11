@@ -1,5 +1,8 @@
 package org.forum.entities;
 
+import org.forum.internal.PermissionKeywords;
+import org.forum.internal.Permissions;
+
 import java.util.List;
 
 public record ForumRecord(List<Subforum> subforums) {
@@ -16,7 +19,7 @@ public record ForumRecord(List<Subforum> subforums) {
      * ensuring that the name does not match that of an existing subforum
      */
     public void addSubforum(String name, User user) {
-        if (true) { // We need an unified method for checking for perms
+        if (Permissions.checkForPermission(user, PermissionKeywords.USER_CREATE_FORUM)) {
             subforums.add(new Subforum(name));
         }
     }
