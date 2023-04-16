@@ -22,7 +22,7 @@ public class Client {
         dos.writeInt(RequestProcessorFactory.TYPE_AUTH);
         System.out.println("Are you an existing user or do you want to create a user profile?");
         System.out.println("0 - Log In\t1 - Sign In");
-    }
+    }   // Lets make everything a request which you can handle with js or smth like that
 
     private static void sendCustom(DataOutputStream dos, DataInputStream dis) throws IOException {
         int responseType = dis.readInt();

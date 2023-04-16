@@ -1,4 +1,4 @@
-package org.forum.internal;
+package org.forum.internal.permissions;
 
 public record PermissionKeywords() {
     //region Admin Permissions

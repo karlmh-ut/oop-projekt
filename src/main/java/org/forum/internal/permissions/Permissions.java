@@ -1,4 +1,4 @@
-package org.forum.internal;
+package org.forum.internal.permissions;
 
 import org.forum.entities.User;
 
@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.util.HashMap;
 
 public class Permissions {
-    static final String path = "src/main/java/org/forum/internal/permissions.txt.txt";
+    static final String path = "src/main/java/org/forum/internal/permissions/permissions.txt";
 
     /**
      * Gets default permissions.txt, which are also set for a new account

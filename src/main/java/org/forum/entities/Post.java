@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+// Why do we need to make this class asbtract, its not like we have multiple different types of posts
 public abstract class Post {
     private String content;
     private final String datetime;

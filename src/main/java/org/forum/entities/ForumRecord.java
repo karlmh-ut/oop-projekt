@@ -1,10 +1,11 @@
 package org.forum.entities;
 
-import org.forum.internal.PermissionKeywords;
-import org.forum.internal.Permissions;
+import org.forum.internal.permissions.PermissionKeywords;
+import org.forum.internal.permissions.Permissions;
 
 import java.util.List;
 
+// Do we want to use subforums or not? Because I personally dont see the point in having subforums
 public record ForumRecord(List<Subforum> subforums) {
 
     private boolean hasSubforumByName(String name) {

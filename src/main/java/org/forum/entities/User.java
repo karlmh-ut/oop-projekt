@@ -1,11 +1,10 @@
 package org.forum.entities;
 
-import org.forum.internal.Permissions;
+import org.forum.internal.permissions.Permissions;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class User {
     private String username;

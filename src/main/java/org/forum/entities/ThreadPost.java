@@ -1,7 +1,7 @@
 package org.forum.entities;
 
-import org.forum.internal.PermissionKeywords;
-import org.forum.internal.Permissions;
+import org.forum.internal.permissions.PermissionKeywords;
+import org.forum.internal.permissions.Permissions;
 
 import java.util.ArrayList;
 import java.util.List;
