@@ -7,6 +7,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.HashMap;
 
+// Contemplating going over to exceptions instead of simple booleans
+// so making difference between problems with permissions and other exceptions would be smoother
 public class Permissions {
     static final String path = "src/main/java/org/forum/internal/permissions/permissions.txt";
 
