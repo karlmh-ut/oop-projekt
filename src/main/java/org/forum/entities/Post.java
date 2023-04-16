@@ -50,7 +50,7 @@ public abstract class Post {
     /**
      * Update the content of the post and call updateEditedtime()
      */
-    public void updateContent(String newcontent) { // We need a method for checking permissions for edits n shit
+    public void updateContent(String newcontent) { // We need a method for checking permissions.txt for edits n shit
         updateEditedtime();
         this.content = newcontent;
     }
