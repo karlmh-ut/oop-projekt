@@ -18,7 +18,7 @@ public class Client {
         System.out.println("[Echo] Server vastas: " + resp);
     }
 
-    public static void authentify(DataOutputStream dos) throws IOException {
+    public static void authenticate(DataOutputStream dos) throws IOException {
         dos.writeInt(RequestProcessorFactory.TYPE_AUTH);
         System.out.println("Are you an existing user or do you want to create a user profile?");
         System.out.println("0 - Log In\t1 - Sign In");
@@ -41,7 +41,7 @@ public class Client {
              DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
              DataInputStream dis = new DataInputStream(sock.getInputStream())) {
 
-            authentify(dos);
+            authenticate(dos);
             while (true) {
                 sendCustom(dos, dis);
             }
