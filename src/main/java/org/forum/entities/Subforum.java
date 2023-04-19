@@ -20,7 +20,8 @@ public class Subforum {
      * Change the name of the subforum if the given user is admin
      */
     public void editName(String newname, User user) {
-        if (user.isAdmin()) this.name = newname;
+        //if (user.isAdmin()) this.name = newname;
+        return;
         //TODO: else?
     }
 
@@ -32,9 +33,10 @@ public class Subforum {
      * Delete post if the acting user is admin OR if the acting user is the author of the post
      */
     public void deletePost(ThreadPost threadPost, User user) {
-        if (user.isAdmin() || threadPost.getAuthor() == user) {
-            this.posts.remove(threadPost);
-        }
+//        if (user.isAdmin() || threadPost.getAuthor() == user) {
+//            this.posts.remove(threadPost);
+//        }
+        return;
     }
 
     private boolean hasThreadPostByName(String name) {

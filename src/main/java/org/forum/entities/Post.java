@@ -51,7 +51,7 @@ public abstract class Post {
     /**
      * Update the content of the post and call updateEditedtime()
      */
-    public void updateContent(String newcontent) { // We need a method for checking permissions.txt for edits n shit
+    public void updateContent(String newcontent) { // TODO: perm check
         updateEditedtime();
         this.content = newcontent;
     }
@@ -66,15 +66,15 @@ public abstract class Post {
      */
     public void addLike(User user) {
         if (!(this.likedBy.contains(user))) this.likedBy.add(user);
-    } // SQL code should be better
+    } // TODO: SQL
 
     public void removeLike(User user) {
         this.likedBy.remove(user);
-    } // SQL code
+    } // TODO: SQL code
 
     public List<User> getLikedBy() {
         return likedBy;
-    } // SQL code
+    } // TODO: SQL code
 
     @Override
     public String toString() {
