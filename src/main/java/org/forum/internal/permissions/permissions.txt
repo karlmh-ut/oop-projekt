@@ -1,0 +1,24 @@
+# Adminisitrative privileges (by default all are turned off, full admin privileges sets all permissions to true)
+fullAdminPrivileges=false
+allowBanForum=false
+allowBanUser=false
+allowModifyUserPermissions=false
+allowMuteUser=false
+allowWarnUser=false
+allowUniversalRemovePosts=false
+allowUniversalEditPost=false
+# User privileges
+isAllowedToCreateForum=false
+isAllowedToUseJavascript=false
+isAllowedToUseHTML=false
+isAllowedToPost=true
+isAllowedToPostExecutables=false
+isAllowedToUseFormatting=true
+isAllowedToPostMedia=true
+isAllowedToPostFiles=true
+isAllowedToPostLinks=true
+isAllowedToSeeNSFW=false
+isAllowedToEditSelfPosts=true
+isAllowedToComment=true
+isAllowedToVote=true
+isAllowedToDeleteSelfPosts=true

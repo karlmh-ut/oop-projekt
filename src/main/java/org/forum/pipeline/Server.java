@@ -1,4 +1,4 @@
-package org.forum;
+package org.forum.pipeline;
 
 import org.forum.entities.User;
 

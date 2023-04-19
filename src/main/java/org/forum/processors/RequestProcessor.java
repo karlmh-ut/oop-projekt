@@ -1,4 +1,4 @@
-package org.forum.requestprocessor;
+package org.forum.processors;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

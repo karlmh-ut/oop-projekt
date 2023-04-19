@@ -1,7 +1,11 @@
 package org.forum.entities;
 
+import org.forum.internal.permissions.PermissionKeywords;
+import org.forum.internal.permissions.Permissions;
+
 import java.util.List;
 
+// Do we want to use subforums or not? Because I personally dont see the point in having subforums
 public record ForumRecord(List<Subforum> subforums) {
 
     private boolean hasSubforumByName(String name) {
@@ -14,10 +18,15 @@ public record ForumRecord(List<Subforum> subforums) {
     /**
      * Add new subforum if the acting user is admin,
      * ensuring that the name does not match that of an existing subforum
+     * @param name name of the subforum
+     * @param user user object who wants to create the subforum
      */
     public void addSubforum(String name, User user) {
-        if (user.isAdmin() && !hasSubforumByName(name)) {
+        if (Permissions.checkForPermission(user, PermissionKeywords.USER_CREATE_FORUM)) {
             subforums.add(new Subforum(name));
+        }
+        else {
+            // Handle response for not enough permissions
         }
     }
 }

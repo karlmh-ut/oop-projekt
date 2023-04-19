@@ -1,12 +1,10 @@
-package org.forum.requests;
-
-import org.forum.requestprocessor.RequestProcessor;
+package org.forum.processors;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import static org.forum.Client.INPUT_INT;
+import static org.forum.pipeline.Client.INPUT_INT;
 
 
 public class AuthProcessor implements RequestProcessor {

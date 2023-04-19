@@ -1,7 +1,7 @@
-package org.forum;
+package org.forum.pipeline;
 
-import org.forum.requestprocessor.RequestProcessor;
-import org.forum.requests.RequestProcessorFactory;
+import org.forum.processors.RequestProcessor;
+import org.forum.processors.RequestProcessorFactory;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
