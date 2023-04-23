@@ -36,7 +36,7 @@ public class Permissions {
      * @throws IllegalArgumentException if the permission key does not exist on the user's permissions.txt list
      */
     public static boolean checkForPermission(User user, String permToCheck) {
-        HashMap<String, Boolean> perms = user.PERMISSIONS();
+        HashMap<String, Boolean> perms = user.getPermissions();
         if (perms.get(permToCheck) == null) throw new IllegalArgumentException("Permission is not valid permission");
         return perms.get(permToCheck);
     }
@@ -49,7 +49,7 @@ public class Permissions {
      * @throws IllegalArgumentException if the permission key does not exist on the user's permissions.txt list
      */
     public static boolean checkForPermissionsAND(User user, String... permsToCheck) {
-        HashMap<String, Boolean> perms = user.PERMISSIONS();
+        HashMap<String, Boolean> perms = user.getPermissions();
         for (String s : permsToCheck) {
             if (perms.get(s) == null) throw new IllegalArgumentException("Permission is not valid permission");
             if (!perms.get(s)) return false;
@@ -65,7 +65,7 @@ public class Permissions {
      * @throws IllegalArgumentException if the permission key does not exist on the user's permissions.txt list
      */
     public static boolean checkForPermissionsOR(User user, String... permsToCheck) {
-        HashMap<String, Boolean> perms = user.PERMISSIONS();
+        HashMap<String, Boolean> perms = user.getPermissions();
         for (String s : permsToCheck) {
             if (perms.get(s) == null) throw new IllegalArgumentException("Permission is not valid permission");
             if (perms.get(s)) return true;

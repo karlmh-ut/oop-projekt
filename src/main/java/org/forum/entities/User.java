@@ -1,34 +1,65 @@
 package org.forum.entities;
 
+import jakarta.persistence.*;
 import org.forum.internal.permissions.Permissions;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
+
+// Kasutajate tabelis on nüüd seos loodud/likeitud postitustega/threadidega. Muutsin mõned
+// muutujate nimed (capsiga kirjutatakse tavaliselt konstandid, seega permissions on nüüd
+// väikeste tähtedega. Muutsin mõned meetodite nimetused.
+@Entity
 public class User {
-    private String username;
-    private String SESSION_TOKEN;
-    private HashMap<String, Boolean> PERMISSIONS;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-    public User(String username, String SESSION_TOKEN, String PERMISSIONS) throws IOException {
-        this.username = username;
-        this.SESSION_TOKEN = SESSION_TOKEN;
-        this.PERMISSIONS = Permissions.getDefaults();
-        if (PERMISSIONS.isBlank()) setNonDefaultPermissions(PERMISSIONS);
-    }
+    private String username;
+
+    @Column(unique = true)
+    private String SESSION_TOKEN;
+    @ElementCollection
+    private HashMap<String, Boolean> permissions;
+
+    @OneToMany
+    private Set<Post> likes = new HashSet<>();
+
+    @OneToMany
+    private Set<Post> posts = new HashSet<>();
+
+    @OneToMany
+    private Set<Thread> threads = new HashSet<>();
+
     private void setNonDefaultPermissions(String permissions) {
         String[][] perms = Arrays.stream(permissions.split(","))
                 .map(g -> g.split("="))
                 .toArray(String[][]::new);
-        for (String[] perm : perms) PERMISSIONS.replace(perm[0], Boolean.valueOf(perm[1]));
+        for (String[] perm : perms) this.permissions.replace(perm[0], Boolean.valueOf(perm[1]));
     }
 
-    public String SESSION_TOKEN() {
+    public String getSessionToken() {
         return SESSION_TOKEN;
     }
 
-    public HashMap<String, Boolean> PERMISSIONS() {
-        return PERMISSIONS;
+    public HashMap<String, Boolean> getPermissions() {
+        return permissions;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setSessionToken(String SESSION_TOKEN) {
+        this.SESSION_TOKEN = SESSION_TOKEN;
+    }
+
+    public void setPermissions(String permissions) throws IOException {
+        this.permissions = Permissions.getDefaults();
+        if (permissions.isBlank()) setNonDefaultPermissions(permissions);
     }
 }
