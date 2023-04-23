@@ -19,5 +19,6 @@ public class Echo implements RequestProcessor {
         dos.writeInt(INPUT_STRING);
         String msg = dis.readUTF();
         dos.writeUTF(msg);
+        dos.writeUTF("");
     }
 }

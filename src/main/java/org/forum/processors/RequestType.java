@@ -30,7 +30,8 @@ public record RequestType() {
     public static final int REQUEST_EDIT_POST = 302;
     //endregion
     //region Users
-    public static final int REQUEST_USER_DATA = 400;
+    public static final int REQUEST_USER_POSTS = 400;
+    public static final int REQUEST_USER_LIKES = 401;
     //endregion
     //endregion
 

@@ -63,4 +63,16 @@ public class Posts {
     public void setContent(String content) {
         this.content = content;
     }
+
+    @Override
+    public String toString() {
+        return "Posts{" +
+                "id=" + id +
+                ", threads=" + threads +
+                ", initial_post_time=" + initial_post_time +
+                ", edited_post_time=" + edited_post_time +
+                ", author=" + author +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }

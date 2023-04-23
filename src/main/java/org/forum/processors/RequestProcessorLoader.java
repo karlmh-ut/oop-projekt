@@ -7,7 +7,8 @@ public class RequestProcessorLoader {
     public static List<RequestProcessor> load() {
         return Arrays.asList(
                 new Echo(),
-                new EditPost()
+                new EditPost(),
+                new UserPosts()
         );
     }
 }

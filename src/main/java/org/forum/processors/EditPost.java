@@ -25,6 +25,7 @@ public class EditPost implements RequestProcessor {
             posts.setContent(response[1]);
             posts.setEditedPostTime(LocalDateTime.now());
             dos.writeUTF("Post updated successfully!");
+            dos.writeUTF("");
         });
     }
 }
