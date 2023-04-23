@@ -1,9 +1,9 @@
 package org.forum.pipeline;
 
-import org.h2.tools.RunScript;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -24,30 +24,17 @@ public class Server {
     }
 
     public static void main(String[] args) throws Exception {
-        try (Connection connection = connectToDatabase("jdbc:h2:mem:")) {
-            try (Reader setupSql = readFromClasspath("setup.sql")) {
-                RunScript.execute(connection, setupSql);
-            }
-
-            // administrate the in-memory DB through a built-in web UI
-            // new thread as startWebServer() blocks otherwise
-            new Thread(() -> {
-                try {
-                    org.h2.tools.Server.startWebServer(connection);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
-
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("forum");
             try (ServerSocket ss = new ServerSocket(Server.PORTNUM)) {
                 System.out.println("Ootan ühendusi");
                 while (true) {
                     Socket socket = ss.accept();
                     System.out.println("Uus ühendus: " + socket);
-                    Thread t = new Thread(new Handler(socket));
+                    Thread t = new Thread(new Handler(socket, entityManagerFactory));
                     t.start();
                 }
+            } finally {
+                entityManagerFactory.close();
             }
-        }
     }
 }

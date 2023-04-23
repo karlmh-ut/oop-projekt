@@ -1,6 +1,8 @@
 package org.forum.processors;
 
 public record RequestType() {
+    public static final int REQUEST_ECHO = -1;
+
     //region Basic requests
     public static final int REQUEST_END = 0;
     public static final int REQUEST_PING = 1;
