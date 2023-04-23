@@ -2,35 +2,35 @@ package org.forum.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 // Struktuur sama kui andmebaasis oli. Lisasin foreign-id, mis seob iga Threadi koos tema autoriga.
 @Entity
-public class Thread {
+public class Threads {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private Subforum subforum;
+    private Subforums subforums;
 
     private String title;
 
-    private LocalDate initial_post_time;
+    private LocalDateTime initial_post_time;
 
-    private LocalDate edited_post_time;
+    private LocalDateTime edited_post_time;
 
     @ManyToOne
-    private User author;
+    private Users author;
 
     private String content;
 
-    public Subforum getSubforum() {
-        return subforum;
+    public Subforums getSubforum() {
+        return subforums;
     }
 
-    public void setSubforum(Subforum subforum) {
-        this.subforum = subforum;
+    public void setSubforum(Subforums subforums) {
+        this.subforums = subforums;
     }
 
     public String getTitle() {
@@ -41,27 +41,27 @@ public class Thread {
         this.title = title;
     }
 
-    public LocalDate getInitial_post_time() {
+    public LocalDateTime getInitialPostTime() {
         return initial_post_time;
     }
 
-    public void setInitial_post_time(LocalDate initial_post_time) {
+    public void setInitialPostTime(LocalDateTime initial_post_time) {
         this.initial_post_time = initial_post_time;
     }
 
-    public LocalDate getEdited_post_time() {
+    public LocalDateTime getEditedPostTime() {
         return edited_post_time;
     }
 
-    public void setEdited_post_time(LocalDate edited_post_time) {
+    public void setEditedPostTime(LocalDateTime edited_post_time) {
         this.edited_post_time = edited_post_time;
     }
 
-    public User getAuthor() {
+    public Users getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(Users author) {
         this.author = author;
     }
 

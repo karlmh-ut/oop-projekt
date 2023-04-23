@@ -22,8 +22,10 @@ public class Client {
         int responseType = dis.readInt();
         if (responseType == INPUT_INT) {
             dos.writeInt(console.nextInt());
+            console.nextLine();
         } else if (responseType == INPUT_STRING) {
             dos.writeUTF(console.nextLine());
+            System.out.println(dis.readUTF());
         } else {
             throw new IOException("invalid response type");
         }

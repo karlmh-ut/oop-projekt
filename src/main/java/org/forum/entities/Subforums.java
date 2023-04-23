@@ -7,16 +7,16 @@ import java.util.Set;
 
 // Lisasin id välja ning seost Thread tabeliga.
 @Entity
-public class Subforum {
+public class Subforums {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true)
     private String name;
 
     @OneToMany
-    Set<Thread> threads = new HashSet<>();
+    Set<Threads> threads = new HashSet<>();
 
     public String getName() {
         return name;
@@ -26,11 +26,11 @@ public class Subforum {
         this.name = name;
     }
 
-    public Set<Thread> getThreads() {
+    public Set<Threads> getThreads() {
         return threads;
     }
 
-    public void setThreads(Set<Thread> threads) {
+    public void setThreads(Set<Threads> threads) {
         this.threads = threads;
     }
 }

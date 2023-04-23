@@ -4,19 +4,16 @@ import jakarta.persistence.*;
 import org.forum.internal.permissions.Permissions;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 // Kasutajate tabelis on nüüd seos loodud/likeitud postitustega/threadidega. Muutsin mõned
 // muutujate nimed (capsiga kirjutatakse tavaliselt konstandid, seega permissions on nüüd
 // väikeste tähtedega. Muutsin mõned meetodite nimetused.
 @Entity
-public class User {
+public class Users {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String username;
@@ -24,29 +21,22 @@ public class User {
     @Column(unique = true)
     private String SESSION_TOKEN;
     @ElementCollection
-    private HashMap<String, Boolean> permissions;
+    private Map<String, Boolean> permissions;
 
     @OneToMany
-    private Set<Post> likes = new HashSet<>();
+    private Set<Posts> likes = new HashSet<>();
 
     @OneToMany
-    private Set<Post> posts = new HashSet<>();
+    private Set<Posts> posts = new HashSet<>();
 
     @OneToMany
-    private Set<Thread> threads = new HashSet<>();
-
-    private void setNonDefaultPermissions(String permissions) {
-        String[][] perms = Arrays.stream(permissions.split(","))
-                .map(g -> g.split("="))
-                .toArray(String[][]::new);
-        for (String[] perm : perms) this.permissions.replace(perm[0], Boolean.valueOf(perm[1]));
-    }
+    private Set<Threads> threads = new HashSet<>();
 
     public String getSessionToken() {
         return SESSION_TOKEN;
     }
 
-    public HashMap<String, Boolean> getPermissions() {
+    public Map<String, Boolean> getPermissions() {
         return permissions;
     }
 
@@ -59,7 +49,7 @@ public class User {
     }
 
     public void setPermissions(String permissions) throws IOException {
-        this.permissions = Permissions.getDefaults();
-        if (permissions.isBlank()) setNonDefaultPermissions(permissions);
+        this.permissions = Permissions.setDefaultPermissions();
+        if (!permissions.isBlank()) Permissions.setNonDefaultPermissions(this.permissions, permissions);
     }
 }
