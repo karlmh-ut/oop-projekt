@@ -2,17 +2,14 @@ package org.forum.pipeline;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import org.forum.processors.RequestProcessor;
-import org.forum.processors.RequestProcessorLoader;
+import org.forum.processors.server.RequestProcessor;
+import org.forum.processors.server.RequestProcessorLoader;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.List;
-
-import static org.forum.pipeline.Client.INPUT_INT;
-
 
 public class Handler implements Runnable {
     private final DataInputStream dis;
@@ -36,7 +33,6 @@ public class Handler implements Runnable {
         try (sock; dis; dos) {
             while (!sock.isClosed()) {
                 // Accept request
-                dos.writeInt(INPUT_INT);
                 int requestType = dis.readInt();
                 EntityManager entityManager = entityManagerFactory.createEntityManager();
                 try { // Handle request

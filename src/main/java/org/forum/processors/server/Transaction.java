@@ -1,4 +1,4 @@
-package org.forum.processors;
+package org.forum.processors.server;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;

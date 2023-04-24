@@ -1,6 +1,7 @@
-package org.forum.processors;
+package org.forum.processors.vars;
 
-public record RequestType() {
+public record RequestCodes() {
+    public static final int REQUEST_EMPTY = -2;
     public static final int REQUEST_ECHO = -1;
 
     //region Basic requests
