@@ -1,6 +1,5 @@
 package org.forum.pipeline;
 
-import org.forum.processors.RequestProcessorFactory;
 import org.forum.processors.RequestType;
 
 import java.io.*;
@@ -11,6 +10,8 @@ public class Client {
     public static final int INPUT_INT = 0;
     public static final int INPUT_STRING = 1;
 
+    // TODO: Revamp the whole communication between server and client, so initial request would be of type int and work forward from there
+
     private static void sendEcho(DataOutputStream dos, DataInputStream dis, String msg) throws IOException {
         dos.writeInt(RequestType.REQUEST_PING);
         dos.writeUTF(msg);
@@ -19,19 +20,17 @@ public class Client {
         System.out.println("[Echo] Server vastas: " + resp);
     }
 
-    public static void authenticate(DataOutputStream dos) throws IOException {
-        dos.writeInt(RequestType.REQUEST_AUTHENTICATE);
-        System.out.println("Are you an existing user or do you want to create a user profile?");
-        System.out.println("0 - Log In\t1 - Sign In");
-    }   // Lets make everything a request which you can handle with js or smth like that
-
-    private static void sendCustom(DataOutputStream dos, DataInputStream dis) throws IOException {
+    private static void sendMessage(DataOutputStream dos, DataInputStream dis, Scanner console) throws IOException {
         int responseType = dis.readInt();
-        Scanner in = new Scanner(System.in);
         if (responseType == INPUT_INT) {
-            dos.writeInt(in.nextInt());
+            dos.writeInt(console.nextInt());
+            console.nextLine();
         } else if (responseType == INPUT_STRING) {
-            dos.writeUTF(in.nextLine());
+            dos.writeUTF(console.nextLine());
+            String response;
+            while (!(response = dis.readUTF()).isBlank()) {
+                System.out.println(response);
+            }
         } else {
             throw new IOException("invalid response type");
         }
@@ -42,9 +41,10 @@ public class Client {
              DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
              DataInputStream dis = new DataInputStream(sock.getInputStream())) {
 
-            authenticate(dos);
-            while (true) {
-                sendCustom(dos, dis);
+            try (Scanner console = new Scanner(System.in)) {
+                while (true) {
+                    sendMessage(dos, dis, console);
+                }
             }
 //            sendEcho(dos, dis, "sample text, tere");
 //            dos.writeInt(RequestProcessorFactory.TYPE_END);
