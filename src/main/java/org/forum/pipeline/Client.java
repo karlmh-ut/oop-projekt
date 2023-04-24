@@ -10,6 +10,8 @@ public class Client {
     public static final int INPUT_INT = 0;
     public static final int INPUT_STRING = 1;
 
+    // TODO: Revamp the whole communication between server and client, so initial request would be of type int and work forward from there
+
     private static void sendEcho(DataOutputStream dos, DataInputStream dis, String msg) throws IOException {
         dos.writeInt(RequestType.REQUEST_PING);
         dos.writeUTF(msg);

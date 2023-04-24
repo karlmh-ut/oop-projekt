@@ -35,21 +35,22 @@ public class Handler implements Runnable {
     public void run() {
         try (sock; dis; dos) {
             while (!sock.isClosed()) {
+                // Accept request
                 dos.writeInt(INPUT_INT);
                 int requestType = dis.readInt();
                 EntityManager entityManager = entityManagerFactory.createEntityManager();
-                try {
+                try { // Handle request
                     for (RequestProcessor requestProcessor : requestProcessors) {
                         requestProcessor.process(entityManager, requestType, dis, dos);
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage()); // We don't want to crash the server, so instead of throwing an error lets just log it
                 } finally {
                     entityManager.close();
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage()); // We don't want to crash the server, so instead of throwing an error lets just log it
         }
     }
 }
