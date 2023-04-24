@@ -1,9 +1,10 @@
 package org.forum.processors;
 
+import jakarta.persistence.EntityManager;
+
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.IOException;
 
 public interface RequestProcessor {
-    void processRequest(DataInputStream dis, DataOutputStream dos) throws IOException;
+    public abstract void process(EntityManager entityManager, int requestType, DataInputStream dis, DataOutputStream dos) throws Exception;
 }
