@@ -7,6 +7,7 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,14 +19,15 @@ public class Server {
         return DriverManager.getConnection(url);
     }
 
-    private static InputStreamReader readFromClasspath(String name) throws UnsupportedEncodingException {
+    private static InputStreamReader readFromClasspath() throws UnsupportedEncodingException {
         ClassLoader cl = Server.class.getClassLoader();
-        return new InputStreamReader(cl.getResourceAsStream(name), "UTF-8");
+        //noinspection DataFlowIssue
+        return new InputStreamReader(cl.getResourceAsStream("setup.sql"), StandardCharsets.UTF_8);
     }
 
     public static void main(String[] args) throws Exception {
         try (Connection connection = connectToDatabase("jdbc:h2:mem:")) {
-            try (Reader setupSql = readFromClasspath("setup.sql")) {
+            try (Reader setupSql = readFromClasspath()) {
                 RunScript.execute(connection, setupSql);
             }
 
