@@ -1,19 +1,18 @@
 package org.forum.pipeline.client;
 
 import org.forum.pipeline.Server;
-import org.forum.processors.client.Reciever;
+import org.forum.processors.client.Receiver;
 import org.h2.engine.User;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import static org.forum.processors.vars.RequestCodes.*;
 
 public class Client {
     protected User userObject;
-    private static Reciever reciever;
+    private static Receiver receiver;
 
     // TODO: Revamp the whole communication between server and client, so initial request would be of type int and work forward from there
 
@@ -21,7 +20,7 @@ public class Client {
         try (Socket sock = new Socket("localhost", Server.PORTNUM);
              DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
              DataInputStream dis = new DataInputStream(sock.getInputStream())) {
-            reciever = new Reciever(dis, dos, sock);
+            receiver = new Receiver();
             try (Scanner console = new Scanner(System.in)) {
                 while (true) {
                     System.out.print("> "); // A prefix to see what is console input
@@ -50,8 +49,9 @@ public class Client {
         if (code >= 400 && code < 500) handleError(code, dis);
 
         int status = dis.readInt();
+        String msg = dis.readUTF();
 
-        reciever.handleResponse(code, status);
+        receiver.handleResponse(code, status, msg);
     }
 
     // Temporary function to work with console
