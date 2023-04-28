@@ -2,6 +2,7 @@ package org.forum.processors.server.processors;
 
 import jakarta.persistence.EntityManager;
 import org.forum.processors.server.RequestProcessor;
+import org.forum.processors.server.SendResponse;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -14,14 +15,11 @@ public class RespondEcho implements RequestProcessor {
     @Override
     public void process(EntityManager entityManager, int requestType, DataInputStream dis, DataOutputStream dos) throws IOException {
         if (requestType != REQUEST_ECHO) return;
-
-        dos.writeInt(REQUEST_ECHO);
         try {
             String msg = dis.readUTF();
-            dos.writeInt(RESPONSE_OK);
-            dos.writeUTF(msg);
+            new SendResponse(dos, REQUEST_ECHO, RESPONSE_OK, msg);
         } catch (Exception e) {
-            dos.writeInt(RESPONSE_FAILED);
+            new SendResponse(dos, REQUEST_ECHO, RESPONSE_FAILED, "");
         }
     }
 }

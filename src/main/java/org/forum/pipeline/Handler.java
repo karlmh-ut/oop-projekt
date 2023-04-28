@@ -36,9 +36,8 @@ public class Handler implements Runnable {
                 int requestType = dis.readInt();
                 EntityManager entityManager = entityManagerFactory.createEntityManager();
                 try { // Handle request
-                    for (RequestProcessor requestProcessor : requestProcessors) {
+                    for (RequestProcessor requestProcessor : requestProcessors)
                         requestProcessor.process(entityManager, requestType, dis, dos);
-                    }
                 } catch (Exception e) {
                     System.out.println(e.getMessage()); // We don't want to crash the server, so instead of throwing an error lets just log it
                 } finally {

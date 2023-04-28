@@ -2,6 +2,7 @@ package org.forum.processors.server.processors;
 
 import jakarta.persistence.EntityManager;
 import org.forum.entities.Posts;
+import org.forum.processors.server.SendResponse;
 import org.forum.processors.server.Transaction;
 import org.forum.processors.server.RequestProcessor;
 
@@ -10,6 +11,7 @@ import java.io.DataOutputStream;
 import java.time.LocalDateTime;
 
 import static org.forum.processors.vars.RequestCodes.REQUEST_EDIT_POST;
+import static org.forum.processors.vars.ResponseCodes.*;
 
 public class RespondEditPost implements RequestProcessor {
     @Override
@@ -19,14 +21,12 @@ public class RespondEditPost implements RequestProcessor {
         }
 
         Transaction.runInTransaction(entityManager, () -> {
-            dos.writeInt(REQUEST_EDIT_POST);
             String[] response = dis.readUTF().split(" ");
             Long postId = Long.valueOf(response[0]);
             Posts posts = entityManager.find(Posts.class, postId);
             posts.setContent(response[1]);
             posts.setEditedPostTime(LocalDateTime.now());
-            dos.writeUTF("Post updated successfully!");
-            dos.writeUTF("");
+            new SendResponse(dos, REQUEST_EDIT_POST, RESPONSE_OK, "Post updated successfully!");
         });
     }
 }

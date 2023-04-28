@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -20,16 +21,18 @@ public class Server {
 
     private static InputStreamReader readFromClasspath(String name) throws UnsupportedEncodingException {
         ClassLoader cl = Server.class.getClassLoader();
-        return new InputStreamReader(cl.getResourceAsStream(name), "UTF-8");
+        //noinspection DataFlowIssue
+        return new InputStreamReader(cl.getResourceAsStream(name), StandardCharsets.UTF_8);
     }
 
     public static void main(String[] args) throws Exception {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("forum"); // Initialize database
             try (ServerSocket ss = new ServerSocket(Server.PORTNUM)) { // Start server
-                System.out.println("Ootan ühendusi");
+                System.out.println("Waiting for connections...");
+                //noinspection InfiniteLoopStatement
                 while (true) {
                     Socket socket = ss.accept();
-                    System.out.println("Uus ühendus: " + socket);
+                    System.out.println("New connection: " + socket);
                     Thread t = new Thread(new Handler(socket, entityManagerFactory));
                     t.start();
                 } // Accept connections

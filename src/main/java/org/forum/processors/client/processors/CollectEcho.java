@@ -9,9 +9,9 @@ import static org.forum.processors.vars.RequestCodes.REQUEST_ECHO;
 
 public class CollectEcho implements ResponseProcessor {
     @Override
-    public void process(int code, DataInputStream dis) throws IOException {
+    public void process(int code, String msg) throws IOException {
         if (code != REQUEST_ECHO) return;
 
-        System.out.println(dis.readUTF());
+        System.out.println(msg);
     }
 }
