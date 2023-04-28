@@ -1,53 +1,86 @@
-package org.forum.pipeline;
+package org.forum.pipeline.client;
 
-import org.forum.processors.RequestType;
+import org.forum.pipeline.Server;
+import org.forum.processors.client.Receiver;
+import org.h2.engine.User;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
 
+import static org.forum.processors.vars.RequestCodes.*;
+
 public class Client {
-    public static final int INPUT_INT = 0;
-    public static final int INPUT_STRING = 1;
+    protected User userObject;
+    private static Receiver receiver;
 
     // TODO: Revamp the whole communication between server and client, so initial request would be of type int and work forward from there
-
-    private static void sendEcho(DataOutputStream dos, DataInputStream dis, String msg) throws IOException {
-        dos.writeInt(RequestType.REQUEST_PING);
-        dos.writeUTF(msg);
-        System.out.println("[Echo] Saatsin: " + msg);
-        String resp = dis.readUTF();
-        System.out.println("[Echo] Server vastas: " + resp);
-    }
-
-    private static void sendMessage(DataOutputStream dos, DataInputStream dis, Scanner console) throws IOException {
-        int responseType = dis.readInt();
-        if (responseType == INPUT_INT) {
-            dos.writeInt(console.nextInt());
-            console.nextLine();
-        } else if (responseType == INPUT_STRING) {
-            dos.writeUTF(console.nextLine());
-            String response;
-            while (!(response = dis.readUTF()).isBlank()) {
-                System.out.println(response);
-            }
-        } else {
-            throw new IOException("invalid response type");
-        }
-    }
 
     public static void main(String[] args) throws Exception {
         try (Socket sock = new Socket("localhost", Server.PORTNUM);
              DataOutputStream dos = new DataOutputStream(sock.getOutputStream());
              DataInputStream dis = new DataInputStream(sock.getInputStream())) {
-
+            receiver = new Receiver();
             try (Scanner console = new Scanner(System.in)) {
                 while (true) {
-                    sendMessage(dos, dis, console);
+                    System.out.print("> "); // A prefix to see what is console input
+                    request(dos, console);
+                    recieve(dis);
                 }
             }
-//            sendEcho(dos, dis, "sample text, tere");
-//            dos.writeInt(RequestProcessorFactory.TYPE_END);
         }
+    }
+
+    /**
+     * Sends a request to server
+     * @param dos DataOutputStream where to write
+     * @param console console from where to read commands
+     */
+    private static void request(DataOutputStream dos, Scanner console) throws IOException {
+        String command = console.next();
+        int requestCode = convertStringIntoRequestCode(command);
+        dos.writeInt(requestCode);
+        String msg = console.next();
+        dos.writeUTF(msg);
+    }
+
+    private static void recieve(DataInputStream dis) throws IOException {
+        int code = dis.readInt();
+        if (code >= 400 && code < 500) handleError(code, dis);
+
+        int status = dis.readInt();
+        String msg = dis.readUTF();
+
+        receiver.handleResponse(code, status, msg);
+    }
+
+    // Temporary function to work with console
+    // add phrases to switch to return correct codes as required
+
+    /**
+     * Converts console commands into server processable request codes
+     * @param phrase phrase to convert
+     * @return server request code
+     */
+    private static int convertStringIntoRequestCode(String phrase) {
+        switch (phrase) {
+            case "ping"         -> { return REQUEST_PING; }
+            case "authenticate" -> { return REQUEST_AUTHENTICATE; }
+            case "getpost"      -> { return REQUEST_POST_CONTENT; }
+            case "comment"      -> { return REQUEST_ADD_COMMENT; }
+            case "echo"         -> { return REQUEST_ECHO; }
+            default             -> { return REQUEST_EMPTY; }
+        }
+    }
+
+    //noinspection
+    /**
+     * Outputs error code and message to the console
+     * @param code Error code
+     * @param dis error message
+     */
+    private static void handleError(int code, DataInputStream dis) throws IOException {
+        System.out.println(code);
+        System.out.println(dis.readUTF());
     }
 }
