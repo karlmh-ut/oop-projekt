@@ -2,6 +2,7 @@ package org.forum.processors.server.processors;
 
 import jakarta.persistence.EntityManager;
 import org.forum.entities.Posts;
+import org.forum.processors.server.SendResponse;
 import org.forum.processors.server.Transaction;
 import org.forum.processors.server.RequestProcessor;
 
@@ -10,6 +11,7 @@ import java.io.DataOutputStream;
 import java.util.List;
 
 import static org.forum.processors.vars.RequestCodes.REQUEST_USER_POSTS;
+import static org.forum.processors.vars.ResponseCodes.*;
 
 public class RespondUserPosts implements RequestProcessor {
     @Override
@@ -25,14 +27,15 @@ public class RespondUserPosts implements RequestProcessor {
                     .setParameter("userId", userId)
                     .getResultList();
             if (posts.isEmpty()) {
-                dos.writeUTF("User haven't posted anything yet!");
-                dos.writeUTF("");
+                new SendResponse(dos, REQUEST_USER_POSTS, RESPONSE_SOFTFAIL, "User hasn't posted anything yet!");
                 return;
             }
+            StringBuilder postsOut = new StringBuilder();
             for (Posts post : posts) {
+                postsOut.append(post).append("/#/");
                 dos.writeUTF(String.valueOf(post));
             }
-            dos.writeUTF("");
+            new SendResponse(dos, REQUEST_USER_POSTS, RESPONSE_OK, postsOut.toString());
         });
     }
 }

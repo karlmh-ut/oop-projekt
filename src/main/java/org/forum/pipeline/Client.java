@@ -1,4 +1,4 @@
-package org.forum.pipeline.client;
+package org.forum.pipeline;
 
 import org.forum.pipeline.Server;
 import org.forum.processors.client.Receiver;

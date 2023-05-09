@@ -1,0 +1,17 @@
+1. CLIENT sends request
+    1.1 Sends REQUEST_CODE to server
+2. SERVER handles the request
+    2.1 SERVER tries to handle request
+    2.2 SERVER creates new SendResponse()
+        2.2.1 Creating new SendResponse() sends a response to CLIENT
+        2.2.2 SendResponse() sends REQUEST_CODE
+        2.2.3 SendResponse() sends STATUS_CODE
+        2.2.4 SendResponse() sends MESSAGE
+3. CLIENT handles the response
+    3.1 CLIENT reads REQUEST_CODE
+        3.1.1 if REQUEST_CODE is a major error code, handles the error
+    3.2 CLIENT reads STATUS
+        3.2.1 If STATUS is a type of fail, handles the fail
+    3.3 CLIENT reads MESSAGE
+    3.4 CLIENT delegates MESSAGE to the correct PROCESSOR
+    3.5 PROCESSOR handles the MESSAGE

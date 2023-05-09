@@ -4,5 +4,5 @@ import java.io.DataInputStream;
 import java.io.IOException;
 
 public interface ResponseProcessor {
-    void process(int code, DataInputStream dis) throws IOException;
+    void process(int code, String msg) throws IOException;
 }
