@@ -1,8 +1,6 @@
 package org.forum.processors.server;
 
-import org.forum.processors.server.processors.RespondEcho;
-import org.forum.processors.server.processors.RespondEditPost;
-import org.forum.processors.server.processors.RespondUserPosts;
+import org.forum.processors.server.processors.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +10,11 @@ public class RequestProcessorLoader {
         return Arrays.asList(
                 new RespondEcho(),
                 new RespondEditPost(),
-                new RespondUserPosts()
+                new RespondUserPosts(),
+                new RespondForumList(),
+                new RespondAuthentication(),
+                new RespondGetPosts(),
+                new RespondPostContent()
         );
     }
 }

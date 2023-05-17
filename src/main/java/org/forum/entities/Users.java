@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.forum.internal.permissions.Permissions;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.*;
 
 
@@ -19,7 +20,8 @@ public class Users {
     private String username;
 
     @Column(unique = true)
-    private String SESSION_TOKEN;
+    private Integer SESSION_TOKEN;
+
     @ElementCollection
     private Map<String, Boolean> permissions;
 
@@ -32,7 +34,7 @@ public class Users {
     @OneToMany
     private Set<Threads> threads = new HashSet<>();
 
-    public String getSessionToken() {
+    public Integer getSessionToken() {
         return SESSION_TOKEN;
     }
 
@@ -43,8 +45,9 @@ public class Users {
     public void setUsername(String username) {
         this.username = username;
     }
+    public String getUsername() { return this.username; }
 
-    public void setSessionToken(String SESSION_TOKEN) {
+    public void setSessionToken(Integer SESSION_TOKEN) {
         this.SESSION_TOKEN = SESSION_TOKEN;
     }
 
