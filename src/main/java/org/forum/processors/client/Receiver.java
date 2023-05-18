@@ -18,17 +18,20 @@ public class Receiver {
     }
 
     public void handleResponse(int code, int status, String msg) throws IOException {
+        System.out.println("Handling...");
         switch (status) { // Using switch here in case we want to implement more status codes
             case RESPONSE_FAILED, RESPONSE_RESTRICTED -> {
-                String message = status == RESPONSE_FAILED ?
+                String message =
+                        status == RESPONSE_FAILED ?
                         "Request failed, please try again." :
                         "You don't have permission to do this.";
                 System.out.println(message);
+                System.out.printf("Error message: %s%n", msg);
                 return;
             }
         }
         for (ResponseProcessor responseProcessor : responseProcessors) {
-            responseProcessor.process(code, msg);
+            responseProcessor.process(code, msg, sock);
         }
     }
 }

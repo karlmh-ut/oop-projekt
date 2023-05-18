@@ -1,17 +1,19 @@
 package org.forum.pipeline;
 
+import jdk.dynalink.linker.support.CompositeTypeBasedGuardingDynamicLinker;
 import org.forum.pipeline.Server;
 import org.forum.processors.client.Receiver;
 import org.h2.engine.User;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import static org.forum.processors.vars.RequestCodes.*;
 
 public class Client {
-    protected User userObject;
+    protected long SESSION_TOKEN;
     private static Receiver receiver;
 
     // TODO: Revamp the whole communication between server and client, so initial request would be of type int and work forward from there
@@ -38,10 +40,17 @@ public class Client {
      */
     private static void request(DataOutputStream dos, Scanner console) throws IOException {
         String command = console.next();
+
         int requestCode = convertStringIntoRequestCode(command);
+        System.out.printf("Sending request %s%n", requestCode);
         dos.writeInt(requestCode);
+        console.useDelimiter("\\n");
         String msg = console.next();
+        msg = String.join(" ", Arrays.copyOfRange(msg.split(" "), 1, msg.split(" ").length));
+        System.out.println(msg);
         dos.writeUTF(msg);
+        console.reset();
+
     }
 
     private static void recieve(DataInputStream dis) throws IOException {
@@ -50,7 +59,6 @@ public class Client {
 
         int status = dis.readInt();
         String msg = dis.readUTF();
-
         receiver.handleResponse(code, status, msg);
     }
 
@@ -69,6 +77,9 @@ public class Client {
             case "getpost"      -> { return REQUEST_POST_CONTENT; }
             case "comment"      -> { return REQUEST_ADD_COMMENT; }
             case "echo"         -> { return REQUEST_ECHO; }
+            case "listforums"   -> { return REQUEST_FORUM_LIST; }
+            case "editpost"     -> { return REQUEST_EDIT_POST; }
+            case "listposts"    -> { return REQUEST_FORUM_CONTENT; }
             default             -> { return REQUEST_EMPTY; }
         }
     }
@@ -82,5 +93,9 @@ public class Client {
     private static void handleError(int code, DataInputStream dis) throws IOException {
         System.out.println(code);
         System.out.println(dis.readUTF());
+    }
+
+    public void SetSessionToken(long SESSION_TOKEN) {
+        this.SESSION_TOKEN = SESSION_TOKEN;
     }
 }

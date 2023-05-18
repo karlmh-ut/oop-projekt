@@ -33,11 +33,13 @@ public class Handler implements Runnable {
         try (sock; dis; dos) {
             while (!sock.isClosed()) {
                 // Accept request
+                System.out.println("Waiting for request...");
                 int requestType = dis.readInt();
+                System.out.printf("Recieved request %s, processing...%n", requestType);
                 EntityManager entityManager = entityManagerFactory.createEntityManager();
                 try { // Handle request
                     for (RequestProcessor requestProcessor : requestProcessors)
-                        requestProcessor.process(entityManager, requestType, dis, dos);
+                        requestProcessor.process(entityManager, requestType, dis, dos, sock);
                 } catch (Exception e) {
                     System.out.println(e.getMessage()); // We don't want to crash the server, so instead of throwing an error lets just log it
                 } finally {

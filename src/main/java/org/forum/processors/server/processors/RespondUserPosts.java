@@ -8,6 +8,7 @@ import org.forum.processors.server.RequestProcessor;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.net.Socket;
 import java.util.List;
 
 import static org.forum.processors.vars.RequestCodes.REQUEST_USER_POSTS;
@@ -15,7 +16,7 @@ import static org.forum.processors.vars.ResponseCodes.*;
 
 public class RespondUserPosts implements RequestProcessor {
     @Override
-    public void process(EntityManager entityManager, int requestType, DataInputStream dis, DataOutputStream dos) throws Exception {
+    public void process(EntityManager entityManager, int requestType, DataInputStream dis, DataOutputStream dos, Socket sock) throws Exception {
         if (requestType != REQUEST_USER_POSTS) {
             return;
         }
@@ -27,7 +28,7 @@ public class RespondUserPosts implements RequestProcessor {
                     .setParameter("userId", userId)
                     .getResultList();
             if (posts.isEmpty()) {
-                new SendResponse(dos, REQUEST_USER_POSTS, RESPONSE_SOFTFAIL, "User hasn't posted anything yet!");
+                new SendResponse(dos, dis, REQUEST_USER_POSTS, RESPONSE_SOFTFAIL, "User hasn't posted anything yet!");
                 return;
             }
             StringBuilder postsOut = new StringBuilder();
@@ -35,7 +36,7 @@ public class RespondUserPosts implements RequestProcessor {
                 postsOut.append(post).append("/#/");
                 dos.writeUTF(String.valueOf(post));
             }
-            new SendResponse(dos, REQUEST_USER_POSTS, RESPONSE_OK, postsOut.toString());
+            new SendResponse(dos, dis, REQUEST_USER_POSTS, RESPONSE_OK, postsOut.toString());
         });
     }
 }
