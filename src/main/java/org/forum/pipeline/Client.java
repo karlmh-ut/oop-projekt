@@ -25,7 +25,6 @@ public class Client {
             receiver = new Receiver();
             try (Scanner console = new Scanner(System.in)) {
                 while (true) {
-                    System.out.print("> "); // A prefix to see what is console input
                     request(dos, console);
                     recieve(dis);
                 }
@@ -39,16 +38,24 @@ public class Client {
      * @param console console from where to read commands
      */
     private static void request(DataOutputStream dos, Scanner console) throws IOException {
+        System.out.println("Select an option from the list of available commands:");
+        System.out.println(Arrays.asList("ping", "authenticate", "getpost", "comment", "echo", "listforums", "editpost", "listposts"));
+        System.out.print("> "); // A prefix to see what is console input
         String command = console.next();
 
         int requestCode = convertStringIntoRequestCode(command);
         System.out.printf("Sending request %s%n", requestCode);
         dos.writeInt(requestCode);
-        console.useDelimiter("\\n");
-        String msg = console.next();
-        msg = String.join(" ", Arrays.copyOfRange(msg.split(" "), 1, msg.split(" ").length));
-        System.out.println(msg);
-        dos.writeUTF(msg);
+
+        if (!(command.equals("ping") || command.equals("listforums"))) {
+            System.out.println("Write a message: ");
+            System.out.print("> "); // A prefix to see what is console input
+            console.useDelimiter("\\n");
+            String msg = console.next();
+            msg = String.join(" ", Arrays.copyOfRange(msg.split(" "), 1, msg.split(" ").length));
+            System.out.println(msg);
+            dos.writeUTF(msg);
+        }
         console.reset();
 
     }

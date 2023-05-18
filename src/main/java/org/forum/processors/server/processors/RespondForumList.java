@@ -18,7 +18,6 @@ public class RespondForumList implements RequestProcessor {
     @Override
     public void process(EntityManager entityManager, int requestType, DataInputStream dis, DataOutputStream dos, Socket sock) throws Exception {
         if (requestType != REQUEST_FORUM_LIST) return;
-        dis.readUTF(); // Read message to clear out inputstream
         try {
             Transaction.runInTransaction(entityManager, () -> {
                 List<Subforums> resultList = entityManager.createQuery("SELECT s FROM Subforums s", Subforums.class).getResultList();
